@@ -27,7 +27,6 @@ class git_davletbaev extends CModule
             $this->MODULE_DESCRIPTION = Loc::getMessage("IDAV_MODULE_DESC");
             $this->PARTNER_NAME = Loc::getMessage("IDAV_PARTNER_NAME");
             $this->PARTNER_URI = Loc::getMessage("IDAV_PARTNER_URL");
-            $this->IBLOCK_TYPE = 'git_davletbaev';
         }
 
         return false;
@@ -61,7 +60,20 @@ class git_davletbaev extends CModule
 
     public function InstallFiles()
     {
-        return false;
+        CopyDirFiles(
+            __DIR__ . "/admin",
+            $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin/",
+            true, // перезаписывает файлы
+            true  // копирует рекурсивно
+        );
+    }
+
+    public function UnInstallFiles()
+    {
+        DeleteDirFiles(
+            __DIR__ . "/admin",
+            $_SERVER["DOCUMENT_ROOT"] . "/bitrix/admin/"
+        );
     }
 
     public function InstallDB()
