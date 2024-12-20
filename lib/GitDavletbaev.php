@@ -8,6 +8,11 @@ use \Bitrix\Main\Type;
 
 class GitDavletbaev extends Entity\DataManager
 {
+    /**
+     * Выполняет команду 'git status' в корневой директории документа.
+     *
+     * @return string Первая строка вывода команды git status.
+     */
     public static function gitStatus()
     {
         chdir($_SERVER['DOCUMENT_ROOT']);
@@ -15,6 +20,12 @@ class GitDavletbaev extends Entity\DataManager
         return $output[0];
     }
 
+    /**
+     * Проверяет, является ли текущая директория git-репозиторием.
+     *
+     * @return bool
+     * True, если директория является git-репозиторием, иначе false.
+     */
     public static function gitInitCheck(): bool
     {
         if (is_dir($_SERVER['DOCUMENT_ROOT'] . '.git')) {
